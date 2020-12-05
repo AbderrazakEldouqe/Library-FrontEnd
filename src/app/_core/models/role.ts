@@ -1,0 +1,5 @@
+export enum Role {
+  ADMIN = 'nSeWxBUbPDm11GPSP8WTDsQRt2hu5HXG',
+  BIBLIOTHECAIRE = 'QNo3hGBnf2yA4mRRtR8VJDNasgMyo4Jl',
+  ADHERENT = 't0dtoNjk9Hi4BkgpOOqqBHVBCllgATYM'
+}

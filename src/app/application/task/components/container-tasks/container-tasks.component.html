@@ -1,0 +1,20 @@
+<div class="container">
+  <p>tasks-container works!</p>
+
+  <app-form-add-edit-task [hidden]="!formIsShow"
+                          [task]="selectedTask"
+                          (storeEvent)="store($event)"
+                          (updateEvent)="update($event)"
+                          (backToListEvent)="backToList()"
+  >
+
+  </app-form-add-edit-task>
+
+  <app-list-tasks [hidden]="formIsShow"
+                  [tasks]="tasks"
+                  (createEvent)="showForm()"
+                  (editEvent)="edit($event)"
+                  (deleteEvent)="delete($event)"
+
+  ></app-list-tasks>
+</div>
