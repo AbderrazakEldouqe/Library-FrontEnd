@@ -14,13 +14,15 @@ const routes: Routes = [
     path: 'auth',
     // loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
     loadChildren: async () => (await import('./auth/auth.module')).AuthModule,
-    canActivate: [AfterAuthGuard]
+    canActivate: [AfterAuthGuard],
+    data: {animation: 'isLeft'}
   },
   {
     path: 'application',
     // loadChildren: () => import('./application/application.module').then(m => m.ApplicationModule),
     loadChildren: async () => (await import('./application/application.module')).ApplicationModule,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {animation: 'isRight'}
   },
   {
     path: '**',

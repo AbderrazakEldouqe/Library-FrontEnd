@@ -13,13 +13,13 @@ const routes: Routes = [
         path: '',
         loadChildren: async () => (await import('./dashboard/dashboard.module')).DashboardModule,
         canActivate: [RoleGuard],
-        data: {roles: [Role.ADMIN]} // this for Admin Role
+        data: {roles: [Role.ADMIN], animation: 'isLeft'} // this for Admin Role
       },
       {
         path: 'dashboard',
         loadChildren: async () => (await import('./dashboard/dashboard.module')).DashboardModule,
         canActivate: [RoleGuard],
-        data: {roles: [Role.ADMIN]} // this for Admin Role
+        data: {roles: [Role.ADMIN], animation: 'isLeft'} // this for Admin Role
       },
       {
         path: 'task',
