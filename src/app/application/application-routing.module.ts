@@ -26,6 +26,12 @@ const routes: Routes = [
         loadChildren: async () => (await import('./task/task.module')).TaskModule,
         canActivate: [RoleGuard],
         data: {roles: [Role.ADMIN], animation: 'isRight'} // this for Admin Role
+      },
+      {
+        path: 'categorie',
+        loadChildren: async () => (await import('./categorie/categorie.module')).CategorieModule,
+        canActivate: [RoleGuard],
+        data: {roles: [Role.ADMIN], animation: 'isRight'} // this for Admin Role
       }
     ]
   }

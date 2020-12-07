@@ -1,0 +1,53 @@
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 card-wrapper">
+      <!-- Input groups -->
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">{{categorie ? 'Edit' : 'Add'}}</h3>
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-primary" id="btn_back" (click)="back()">Back to list</button>
+            </div>
+          </div>
+        </div>
+        <!-- Card body -->
+        <div class="card-body">
+          <div class="col-md-8 mx-auto">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="name">name</label>
+                <input formControlName="name"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('name').valid,
+               'is-invalid': form.get('name').invalid && (form.get('name').touched || (form.get('name').dirty))
+               }"
+                       name="name"
+                       id="name"
+                       class="form-control">
+                <div *ngIf="form.get('name').invalid && (form.get('name').touched) || (form.get('name').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('name').getError('required')">this field is required</div>
+                </div>
+              </div>
+
+              <button class="btn btn-block btn-primary"
+                      [disabled]="form.invalid">{{categorie ? 'Update' : 'Create'}}</button>
+              <!--                {{form.value | json}}-->
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
