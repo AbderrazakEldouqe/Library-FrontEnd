@@ -94,3 +94,14 @@ export const shake = [
       style({ transform: 'translate3d(0, 0, 0)', offset: 1 })
     ]))),
   ])];
+export const panelInOut = [
+  trigger('panelInOut', [
+    transition('void => *', [
+      style({transform: 'translateY(-100%)'}),
+      animate(800)
+    ]),
+    transition('* => void', [
+      animate(800, style({transform: 'translateY(-100%)'}))
+    ])
+  ])
+];
