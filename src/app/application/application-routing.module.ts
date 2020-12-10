@@ -32,6 +32,11 @@ const routes: Routes = [
         loadChildren: async () => (await import('./categorie/categorie.module')).CategorieModule,
         canActivate: [RoleGuard],
         data: {roles: [Role.ADMIN], animation: 'isRight'} // this for Admin Role
+      },
+      {
+        path: 'language',
+        loadChildren: async () => (await import('./language/language.module')).LanguageModule,
+        data: {animation: 'isRight'}
       }
     ]
   }

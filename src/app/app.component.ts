@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {slider} from './_core/animations/route-animations';
 
@@ -6,7 +6,8 @@ import {slider} from './_core/animations/route-animations';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [slider]
+  animations: [slider],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   title = 'library-hero';

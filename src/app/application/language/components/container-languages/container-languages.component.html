@@ -1,0 +1,23 @@
+<div>
+  <app-header-languages
+    [name]="'Languages'"
+    [option]="!formIsShow ? 'List' : selectedLanguage ? 'Edit' : 'Add'"
+  >
+  </app-header-languages>
+  <app-form-add-edit-languages [hidden]="!formIsShow"
+                                [language]="selectedLanguage"
+                                (storeEvent)="store($event)"
+                                (updateEvent)="update($event)"
+                                (backToListEvent)="backToList()"
+  >
+
+  </app-form-add-edit-languages>
+
+  <app-list-languages [hidden]="formIsShow"
+                       [languages]="languages"
+                       (createEvent)="showForm()"
+                       (editEvent)="edit($event)"
+                       (deleteEvent)="delete($event)"
+
+  ></app-list-languages>
+</div>

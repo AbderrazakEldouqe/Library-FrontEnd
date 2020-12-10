@@ -98,7 +98,7 @@ export class ContainerCategoriesComponent implements OnInit, OnDestroy {
     });
     this.categories.splice(index, 1);
     this.categories = [...this.categories];
-    this.notification.success(`Task bien supprimer !`, 'bien supprimer !');
+    this.notification.success(`Categorie bien supprimer !`, 'bien supprimer !');
 
   }
 

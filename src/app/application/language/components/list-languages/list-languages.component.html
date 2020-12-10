@@ -1,0 +1,80 @@
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header border-0">
+          <div class="row align-items-center pb-2">
+            <div class="col-8">
+              <h3 class="mb-0">List</h3>
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-primary" id="btn_back" (click)="create()">new</button>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-md-2">
+              <div class="form-group">
+                <select (change)="onTableSizeChange($event)" class="form-control w-50">
+                  <option *ngFor="let size of tableSizes" [ngValue]="size">
+                    {{ size }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3 offset-md-7 text-right">
+              <div class="form-group text-right">
+                <input
+                  type="text"
+                  name="search"
+                  class="form-control"
+                  placeholder="Search..."
+                  [(ngModel)]="filter">
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush table-striped">
+              <thead class="thead-light">
+              <tr>
+                <th>id</th>
+                <th>name</th>
+
+                <th class="text-center">Actions</th>
+              </tr>
+              </thead>
+              <tbody class="list">
+              <tr
+                *ngFor="let language of languages | filter: filter | paginate: config; trackBy: trackById">
+                <td>{{language.id}}</td>
+                <td>{{language.name}}</td>
+
+                <td class="table-actions text-center">
+                  <button (click)="edit(language)" class="table-action icons" data-toggle="tooltip"
+                          data-original-title="Edit product">
+                    <i class="fas fa-user-edit"></i>
+                  </button>
+                  <button (click)="delete(language)" class="table-action table-action-delete icons"
+                          data-toggle="tooltip"
+                          data-original-title="Delete product">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="(languages | filter: filter).length === 0">
+                <td colspan="3" class="text-center">No matching records found</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Card footer -->
+          <div class="card-footer py-4">
+            <app-paginations (pageChange)="config.currentPage=$event"></app-paginations>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
