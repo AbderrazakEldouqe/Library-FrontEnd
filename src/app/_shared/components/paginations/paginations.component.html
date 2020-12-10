@@ -1,0 +1,33 @@
+<!--<pagination-template #p="paginationApi" [id]="'custom'" (pageChange)="currentPage = $event">-->
+
+<pagination-template #p="paginationApi" [id]="'custom'" (pageChange)="pageChanged($event)">
+  <nav aria-label="...">
+    <ul class="pagination justify-content-end mb-0">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+                <span class="page-link" (click)="p.previous()"> <!-- *ngIf="!p.isFirstPage()" -->
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </span>
+      </li>
+
+      <li class="page-item" *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value">
+
+                <span class="page-link" (click)="p.setCurrent(page.value)"
+                      *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+        <div *ngIf="p.getCurrent() === page.value">
+          <span class="page-link">{{ page.label }}</span>
+        </div>
+      </li>
+
+
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+                <span class="page-link" (click)="p.next()"><!-- *ngIf="!p.isLastPage()" -->
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </span>
+      </li>
+    </ul>
+  </nav>
+</pagination-template>
+
+

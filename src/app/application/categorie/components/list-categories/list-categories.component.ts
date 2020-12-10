@@ -15,6 +15,16 @@ export class ListCategoriesComponent implements OnInit {
   @Output() editEvent = new EventEmitter();
   @Output() deleteEvent = new EventEmitter();
 
+  config = {
+    id: 'custom',
+    itemsPerPage: 4,
+    currentPage: 1,
+    totalItems: this.categories.length
+  };
+
+  tableSizes = [4, 8, 10, 14];
+
+  filter = '';
   constructor() {
   }
 
@@ -54,4 +64,8 @@ export class ListCategoriesComponent implements OnInit {
     return item ? item.id : undefined;
   }
 
+  onTableSizeChange(event): void {
+    this.config.itemsPerPage = event.target.value;
+    this.config.currentPage = 1;
+  }
 }
