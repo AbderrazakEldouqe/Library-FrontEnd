@@ -39,32 +39,48 @@
           <table class="table align-items-center table-flush table-striped">
             <thead class="thead-light">
             <tr>
-              <th>id</th>
-              <th>name</th>
-
+              <th>Title</th>
+              <th>isbn</th>
+              <th>edition</th>
+              <th>author</th>
+              <th>sotck_quantity</th>
               <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody class="list">
             <tr
-              *ngFor="let language of languages | filter: filter | paginate: config; trackBy: trackById">
-              <td>{{language.id}}</td>
-              <td>{{language.name}}</td>
-
+              *ngFor="let book of books | filter: filter | paginate: config; trackBy: trackById; let last = last">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="avatar rounded-circle mr-3">
+                    <img alt="Image placeholder" [src]="apiUrlImage+''+book.image" class="cover" style="height: 70px;">
+                  </div>
+                  <div class="media-body">
+                    <span class="name mb-0 text-sm">{{book.title}}</span>
+                  </div>
+                </div>
+              <td>{{book.isbn}}</td>
+              <td>{{book.edition}}</td>
+              <td>{{book.author}}</td>
+              <td>{{book.sotck_quantity}}</td>
               <td class="table-actions text-center">
-                <button (click)="edit(language)" class="table-action icons" data-toggle="tooltip"
+                <button (click)="view(book)" class="table-action icons" data-toggle="tooltip"
+                        data-original-title="Edit product">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button (click)="edit(book)" class="table-action icons" data-toggle="tooltip"
                         data-original-title="Edit product">
                   <i class="fas fa-user-edit"></i>
                 </button>
-                <button (click)="delete(language)" class="table-action table-action-delete icons"
+                <button (click)="delete(book)" class="table-action table-action-delete icons"
                         data-toggle="tooltip"
                         data-original-title="Delete product">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
             </tr>
-            <tr *ngIf="(languages | filter: filter).length === 0">
-              <td colspan="3" class="text-center">No matching records found</td>
+            <tr *ngIf="(books | filter: filter).length === 0">
+              <td colspan="6" class="text-center">No matching records found</td>
             </tr>
             </tbody>
           </table>
@@ -77,5 +93,4 @@
       </div>
     </div>
   </div>
-
 </div>

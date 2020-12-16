@@ -36,7 +36,12 @@ const routes: Routes = [
       {
         path: 'language',
         loadChildren: async () => (await import('./language/language.module')).LanguageModule,
-        data: {animation: 'isRight'}
+        data: {roles: [Role.ADMIN], animation: 'isLeft'}
+      },
+      {
+        path: 'book',
+        loadChildren: async () => (await import('./book/book.module')).BookModule,
+        data: {roles: [Role.ADMIN], animation: 'isRight'}
       }
     ]
   }

@@ -1,0 +1,28 @@
+<div>
+  <app-header-books
+    [name]="'Books'"
+    [option]="!formIsShow ? 'List' : selectedBook ? 'Edit' : 'Add'"
+  >
+  </app-header-books>
+  <app-form-add-edit-books [hidden]="!formIsShow"
+                               [book]="selectedBook"
+                               (storeEvent)="store($event)"
+                               (updateEvent)="update($event)"
+                               (backToListEvent)="backToList()"
+  >
+
+  </app-form-add-edit-books>
+
+  <app-list-books [hidden]="formIsShow || viewBook"
+                      [books]="books"
+                      (createEvent)="showForm()"
+                      (editEvent)="edit($event)"
+                      (deleteEvent)="delete($event)"
+                      (viewEvent)="view($event)"
+  ></app-list-books>
+  <app-view-book [hidden]="!viewBook"
+                 [book]="selectedBook"
+                 (backToListEvent)="backToList()"
+  ></app-view-book>
+</div>
+

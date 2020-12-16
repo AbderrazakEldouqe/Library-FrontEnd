@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class DataService {
 
-  constructor(private url: string, private http: HttpClient) {
+  constructor(private url: string, public http: HttpClient) {
   }
 
   getAll(headersObject = {}): Observable<any> {

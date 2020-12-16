@@ -1,0 +1,80 @@
+<div class="container-fluid mt--6">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 card-wrapper ct-example">
+      <!-- Styles -->
+      <div class="card">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">View Details</h3>
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-primary" id="btn_back" (click)="back()">Back to list</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div>
+            <!--                <img src="../../../../../assets/img/theme/team-1.jpg" class="rounded-circle img-center img-fluid shadow shadow-lg&#45;&#45;hover" style="width: 140px;">-->
+<!--            <img src="https://images-na.ssl-images-amazon.com/images/I/5101Nygy-xL._SX338_BO1,204,203,200_.jpg"-->
+<!--                 class="img-center img-fluid shadow shadow-lg&#45;&#45;hover" style="width: 140px;">-->
+            <img [src]="apiUrlImage+''+book?.image"
+                 class="img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
+          </div>
+          <div class="pt-4 text-center">
+            <h5 class="h3 title">
+              <span class="d-block mb-1">{{book?.title}}</span>
+              <small class="h4 font-weight-light text-muted">{{book?.author}}</small>
+            </h5>
+          </div>
+          <div class="row">
+            <div class="col-md-6 text-center">
+              <span>
+              <h3 class=" mt-3 mb-0">id</h3>
+              <p class=" text-sm mt-1 mb-0">{{book?.id}}</p>
+              </span>
+            </div>
+            <div class="col-md-6 text-center">
+              <span>
+                <h3 class=" mt-3 mb-0">isbn</h3>
+              <p class=" text-sm mt-1 mb-0">{{book?.isbn}}</p>
+              </span>
+            </div>
+            <div class="col-md-6 text-center">
+              <span>
+              <h3 class=" mt-3 mb-0">edition</h3>
+              <p class=" text-sm mt-1 mb-0">{{book?.edition}}</p>
+              </span>
+            </div>
+            <div class="col-md-6 text-center">
+              <span>
+                <h3 class=" mt-3 mb-0">sotck_quantity</h3>
+                <p class=" text-sm mt-1 mb-0">{{book?.sotck_quantity}}</p>
+              </span>
+            </div>
+            <div class="col-md-6 text-center">
+
+              <h3 class=" mt-3 mb-0">categories</h3>
+              <div class="mt-3">
+            <span *ngFor="let categorie of book?.categories"
+                  class="badge badge-pill badge-success">{{categorie.name}}</span>
+              </div>
+
+            </div>
+            <div class="col-md-6 text-center">
+              <span><h3 class=" mt-3 mb-0">language</h3>
+              <p class=" text-sm mt-1 mb-0">{{book?.language?.name}}</p>
+              </span>
+            </div>
+            <div class="col-md-12 text-center">
+              <span><h3 class=" mt-3 mb-0">description</h3>
+              <p class=" text-sm mt-1 mb-0">{{book?.description}}</p>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

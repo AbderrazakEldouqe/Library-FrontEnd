@@ -1,0 +1,251 @@
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">{{book ? 'Edit' : 'Add'}}</h3>
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-primary" id="btn_back" (click)="back()">Back to list</button>
+            </div>
+          </div>
+        </div>
+        <!-- Card body -->
+        <div class="card-body">
+          <div class="col-md-12">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row">
+              <div class="form-group col-md-6">
+                <label for="isbn">isbn</label>
+                <input formControlName="isbn"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('isbn').valid,
+               'is-invalid': form.get('isbn').invalid && (form.get('isbn').touched || (form.get('isbn').dirty))
+               }"
+                       name="isbn"
+                       id="isbn"
+                       class="form-control">
+                <div *ngIf="form.get('isbn').invalid && (form.get('isbn').touched) || (form.get('isbn').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('isbn').getError('required')">this field is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="title">title</label>
+                <input formControlName="title"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('title').valid,
+               'is-invalid': form.get('title').invalid && (form.get('title').touched || (form.get('title').dirty))
+               }"
+                       name="title"
+                       id="title"
+                       class="form-control">
+                <div *ngIf="form.get('title').invalid && (form.get('title').touched) || (form.get('title').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('title').getError('required')">this field is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="edition">edition</label>
+                <input formControlName="edition"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('edition').valid,
+               'is-invalid': form.get('edition').invalid && (form.get('edition').touched || (form.get('edition').dirty))
+               }"
+                       name="edition"
+                       id="edition"
+                       class="form-control">
+                <div *ngIf="form.get('edition').invalid && (form.get('edition').touched) || (form.get('edition').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('edition').getError('required')">this field is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="author">author</label>
+                <input formControlName="author"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('author').valid,
+               'is-invalid': form.get('author').invalid && (form.get('author').touched || (form.get('author').dirty))
+               }"
+                       name="author"
+                       id="author"
+                       class="form-control">
+                <div *ngIf="form.get('author').invalid && (form.get('author').touched) || (form.get('author').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('author').getError('required')">this field is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="sotck_quantity">sotck_quantity</label>
+                <input formControlName="sotck_quantity"
+                       min="0"
+                       type="number"
+                       [ngClass]="{
+               'is-valid': form.get('sotck_quantity').valid,
+               'is-invalid': form.get('sotck_quantity').invalid && (form.get('sotck_quantity').touched || (form.get('sotck_quantity').dirty))
+               }"
+                       name="sotck_quantity"
+                       id="sotck_quantity"
+                       class="form-control">
+                <div
+                  *ngIf="form.get('sotck_quantity').invalid && (form.get('sotck_quantity').touched) || (form.get('sotck_quantity').dirty)"
+                  class="invalid-feedback">
+                  <div *ngIf="form.get('sotck_quantity').getError('required')">this field is required</div>
+                  <div *ngIf="form.get('sotck_quantity').getError('min')">min value is 0</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="description">description</label>
+                <input formControlName="description"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('description').valid,
+               'is-invalid': form.get('description').invalid && (form.get('description').touched || (form.get('description').dirty))
+               }"
+                       name="description"
+                       id="description"
+                       class="form-control">
+                <div
+                  *ngIf="form.get('description').invalid && (form.get('description').touched) || (form.get('description').dirty)"
+                  class="invalid-feedback">
+                  <div *ngIf="form.get('description').getError('required')">this field is required</div>
+                </div>
+              </div>
+              <!--              <div class="form-group col-md-6">-->
+              <!--                <label for="image">image</label>-->
+              <!--                <input formControlName="image"-->
+              <!--                       type="text"-->
+              <!--                       [ngClass]="{-->
+              <!--               'is-valid': form.get('image').valid,-->
+              <!--               'is-invalid': form.get('image').invalid && (form.get('image').touched || (form.get('image').dirty))-->
+              <!--               }"-->
+              <!--                       name="image"-->
+              <!--                       id="image"-->
+              <!--                       class="form-control">-->
+              <!--                <div *ngIf="form.get('image').invalid && (form.get('image').touched) || (form.get('image').dirty)"-->
+              <!--                     class="invalid-feedback">-->
+              <!--                  <div *ngIf="form.get('image').getError('required')">this field is required</div>-->
+              <!--                </div>-->
+              <!--              </div>-->
+              <!--              <div class="form-group">-->
+              <!--                <label >test</label>-->
+              <!--                <ng-select [items]="items"-->
+              <!--                           bindLabel="name"-->
+              <!--                           placeholder="Select item"-->
+              <!--                           appendTo="body"-->
+              <!--                >-->
+              <!--                </ng-select>-->
+              <!--                <ng-select [(ngModel)]="selectedCar">-->
+              <!--                  <ng-option *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>-->
+              <!--                </ng-select>-->
+              <!--              </div>-->
+              <div class="form-group col-md-6">
+                <label for="language_id">language</label>
+                <ng-select id="language_id"
+                           formControlName="language_id"
+                           bindLabel="language_id"
+                           placeholder="Select Language"
+                           [ngClass]="{
+               'is-valid': form.get('language_id').valid,
+               'is-invalid': form.get('language_id').invalid && (form.get('language_id').touched || (form.get('language_id').dirty))
+               }">
+                  <ng-option *ngFor="let langue of languages" [value]="langue.id">{{langue.name}}</ng-option>
+                </ng-select>
+                <div
+                  *ngIf="form.get('language_id').invalid && (form.get('language_id').touched) || (form.get('language_id').dirty)"
+                >
+                  <div class="myerror" *ngIf="form.get('language_id').getError('required')">this field is required</div>
+                </div>
+                <!--                <ng-select [items]="languages"-->
+                <!--                           bindLabel="name"-->
+                <!--                           placeholder="Select item"-->
+                <!--                           appendTo="body"-->
+                <!--                           -->
+
+                <!--                           id="language_id"-->
+                <!--                ></ng-select>-->
+
+                <!--                  <div-->
+                <!--                    *ngIf="form.get('language_id').invalid && (form.get('language_id').touched) || (form.get('language_id').dirty)"-->
+                <!--                    class="invalid-feedback">-->
+                <!--                    <div *ngIf="form.get('language_id').getError('required')">this field is required</div>-->
+                <!--                  </div>-->
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="categories">categories</label>
+                <ng-select id="categories"
+                           formControlName="categories"
+                           bindLabel="categories"
+                           placeholder="Select Categories"
+                           multiple="true"
+                           [ngClass]="{
+               'is-valid': form.get('categories').valid,
+               'is-invalid': form.get('categories').invalid && (form.get('categories').touched || (form.get('categories').dirty))
+               }">
+                  <ng-option *ngFor="let categorie of categories" [value]="categorie.id">{{categorie.name}}</ng-option>
+                </ng-select>
+                <div
+                  *ngIf="form.get('categories').invalid && (form.get('categories').touched) || (form.get('categories').dirty)"
+                >
+                  <div class="myerror" *ngIf="form.get('categories').getError('required')">this field is required</div>
+                </div>
+                <!--                <div class="invalid-feedback">-->
+                <!--                  invalid {{form.get('categories').invalid }} touched {{form.get('categories').touched }} dirty {{form.get('categories').dirty}} required {{form.get('categories').getError('required')}}-->
+                <!--                  <div *ngIf="form.get('categories').getError('required')">this field is required</div>-->
+                <!--                </div>-->
+              </div>
+              <div class="form-group col-md-12">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label for="image">image</label>
+                    <input formControlName="image"
+                           type="file"
+                           name="image"
+                           id="image"
+                           class="form-control"
+                           accept=".png, .jpg, .jpeg"
+                           [ngClass]="{
+               'is-valid': form.get('image').valid,
+               'is-invalid': form.get('image').invalid && (form.get('image').touched || (form.get('image').dirty))
+               }"
+                           #fileInput
+                           (change)="onChange(fileInput.files[0])"
+                    >
+                    <div *ngIf="form.get('image').invalid && (form.get('image').touched) || (form.get('image').dirty)"
+                         class="invalid-feedback">
+                      <div *ngIf="form.get('image').getError('required')">this field is required</div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <!--                    <img src="../../../../../assets/img/default-upload/default.png"-->
+                    <!--                         class="img-left img-fluid shadow shadow-lg&#45;&#45;hover" style="width: 140px;">-->
+                    <img [src]="imageUrl"
+                         class="img-left img-fluid shadow shadow-lg--hover"
+                         style="width: 140px; height: 104px">
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-block btn-primary"
+                      [disabled]="form.invalid">{{book ? 'Update' : 'Create'}}</button>
+              {{form.value | json}}
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+

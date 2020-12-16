@@ -24,7 +24,7 @@ export class JwtInterceptor implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${this.tokenService.getToken()}`,
-        'Content-Type': 'application/json',
+        /*'Content-Type': 'application/json',*/
         role_id: this.tokenService.getRoleId(),
         navigation_version: this.tokenService.getNavigationVersion()
       }
