@@ -1,0 +1,101 @@
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">{{account ? 'Edit' : 'Add'}}</h3>
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-primary" id="btn_back" (click)="back()">Back to list</button>
+            </div>
+          </div>
+        </div>
+        <!-- Card body -->
+        <div class="card-body">
+          <div class="col-md-12">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row">
+              <div class="form-group col-md-6">
+                <label for="name">name</label>
+                <input formControlName="name"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('name').valid,
+               'is-invalid': form.get('name').invalid && (form.get('name').touched || (form.get('name').dirty))
+               }"
+                       name="name"
+                       id="name"
+                       class="form-control">
+                <div *ngIf="form.get('name').invalid && (form.get('name').touched) || (form.get('name').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('name').getError('required')">this field is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="email">email</label>
+                <input formControlName="email"
+                       type="email"
+                       [ngClass]="{
+               'is-valid': form.get('email').valid,
+               'is-invalid': form.get('email').invalid && (form.get('email').touched || (form.get('email').dirty))
+               }"
+                       name="email"
+                       id="email"
+                       class="form-control">
+                <div *ngIf="form.get('email').invalid && (form.get('email').touched) || (form.get('email').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('email').getError('required')">this field is required</div>
+                  <div *ngIf="form.get('email').getError('email')">this field should be email</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="password">password</label>
+                <input formControlName="password"
+                       type="password"
+                       [ngClass]="{
+               'is-valid': form.get('password').valid,
+               'is-invalid': form.get('password').invalid && (form.get('password').touched || (form.get('password').dirty))
+               }"
+                       name="password"
+                       id="password"
+                       class="form-control">
+                <div *ngIf="form.get('password').invalid && (form.get('password').touched) || (form.get('password').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('password').getError('required')">this field is required</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="cin">cin</label>
+                <input formControlName="cin"
+                       type="text"
+                       [ngClass]="{
+               'is-valid': form.get('cin').valid,
+               'is-invalid': form.get('cin').invalid && (form.get('cin').touched || (form.get('cin').dirty))
+               }"
+                       name="cin"
+                       id="cin"
+                       class="form-control">
+                <div *ngIf="form.get('cin').invalid && (form.get('cin').touched) || (form.get('cin').dirty)"
+                     class="invalid-feedback">
+                  <div *ngIf="form.get('cin').getError('required')">this field is required</div>
+                </div>
+              </div>
+
+              <button class="btn btn-block btn-primary"
+                      [disabled]="form.invalid">{{account ? 'Update' : 'Create'}}</button>
+              {{form.value | json}}
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+

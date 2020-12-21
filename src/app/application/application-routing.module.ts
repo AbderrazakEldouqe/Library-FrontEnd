@@ -42,6 +42,11 @@ const routes: Routes = [
         path: 'book',
         loadChildren: async () => (await import('./book/book.module')).BookModule,
         data: {roles: [Role.ADMIN], animation: 'isRight'}
+      },
+      {
+        path: 'account',
+        loadChildren: async () => (await import('./account/account.module')).AccountModule,
+        data: {animation: 'isLeft'}
       }
     ]
   }

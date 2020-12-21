@@ -1,0 +1,17 @@
+<app-header-accounts
+  [name]="'Accounts'"
+  [option]="!formIsShow ? 'List' : selectedAccount ? 'Edit' : 'Add'"
+></app-header-accounts>
+<app-form-add-edit-accounts [hidden]="!formIsShow"
+                            [account]="selectedAccount"
+                            [source]="source"
+                            (storeEvent)="store($event)"
+                            (updateEvent)="update($event)"
+                            (backToListEvent)="backToList()"
+>
+</app-form-add-edit-accounts>
+<app-list-accounts [hidden]="formIsShow"
+                   [biblioAccounts]="biblioAccounts"
+                   [adherentAccounts]="adherentAccounts"
+                   [toApproveAccounts]="toApproveAccounts"
+></app-list-accounts>

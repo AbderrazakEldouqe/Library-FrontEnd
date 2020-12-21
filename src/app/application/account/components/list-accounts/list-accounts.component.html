@@ -1,0 +1,39 @@
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-color: transparent;">
+        <li class="nav-item">
+          <a class="nav-link active" id="biblio-tab" data-toggle="tab" href="#biblio" role="tab" aria-controls="biblio"
+             aria-selected="true">Biblios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="adherent-tab" data-toggle="tab" href="#adherent" role="tab" aria-controls="adherent"
+             aria-selected="false">Adherents</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="approuve-tab" data-toggle="tab" href="#approuve" role="tab" aria-controls="approuve"
+             aria-selected="false">To Approuve</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="biblio" role="tabpanel" aria-labelledby="biblio-tab">
+          <div class="">
+            <app-list-accounts-biblio [biblioAccounts]="biblioAccounts"
+
+            ></app-list-accounts-biblio>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="adherent" role="tabpanel" aria-labelledby="adherent-tab">
+          <div class="">
+            <app-list-accounts-adherent [adherentAccounts]="adherentAccounts"></app-list-accounts-adherent>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="approuve" role="tabpanel" aria-labelledby="approuve-tab">
+          <div class="">
+            <app-list-accounts-to-approuve [toApproveAccounts]="toApproveAccounts"></app-list-accounts-to-approuve>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
