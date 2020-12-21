@@ -3,6 +3,7 @@ import {SubSink} from 'subsink';
 import {NotificationService} from '../../../../_core/services/notification.service';
 import {Language} from '../../../../_core/models/language';
 import {LanguageService} from '../../services/language.service';
+import {JsService} from '../../../../_core/services/js.service';
 
 @Component({
   selector: 'app-container-languages',
@@ -17,7 +18,8 @@ export class ContainerLanguagesComponent implements OnInit, OnDestroy {
   selectedLanguage: Language = null;
 
   constructor(private languageService: LanguageService,
-              private notification: NotificationService) {
+              private notification: NotificationService,
+              private jsService: JsService) {
   }
 
   ngOnInit(): void {
@@ -50,20 +52,20 @@ export class ContainerLanguagesComponent implements OnInit, OnDestroy {
   }
 
   handleResponseStore(data: Language): void {
-    this.languages = [data, ...this.languages];
+    this.languages = this.jsService.spread(this.languages, data);
     this.notification.success('Language bien crée !', 'bien crée !');
     this.formIsShow = false;
   }
 
 
   edit(language: Language): void {
-    this.selectedLanguage = Object.assign({}, language);
+    this.selectedLanguage = this.jsService.objectAssign(language);
     this.showForm();
   }
 
   update(language: Language): void {
     const id = language.id;
-    delete language.id;
+    language = this.jsService.deleteElementFromObjectByKey(language, 'id');
     this.subs.add(
       this.languageService.update(id, language).subscribe((res: Language) => {
         this.handleResponseUpdate(res);
@@ -72,12 +74,7 @@ export class ContainerLanguagesComponent implements OnInit, OnDestroy {
   }
 
   handleResponseUpdate(data: Language): void {
-    this.languages = this.languages.map(language => {
-      if (data.id === language.id) {
-        language = data;
-      }
-      return language;
-    });
+    this.languages = this.jsService.modifyObjectElementFromArrayByKey(this.languages, data, 'id');
     this.notification.success(`Language bien Modfiee !`, 'bien Modfiee !');
     this.formIsShow = false;
   }
@@ -93,13 +90,8 @@ export class ContainerLanguagesComponent implements OnInit, OnDestroy {
   }
 
   handleResponseDelete(data: Language): void {
-    const index = this.languages.findIndex((item, i) => {
-      return data.id === item.id;
-    });
-    this.languages.splice(index, 1);
-    this.languages = [...this.languages];
+    this.languages = this.jsService.spread(this.jsService.deleteObjectElementFromArrayByKey(this.languages, data, 'id'));
     this.notification.success(`Language bien supprimer !`, 'bien supprimer !');
-
   }
 
   ngOnDestroy(): void {

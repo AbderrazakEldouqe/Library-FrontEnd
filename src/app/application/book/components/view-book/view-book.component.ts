@@ -21,6 +21,7 @@ export class ViewBookComponent implements OnInit {
   }
 
   back(): void {
+    this.book = null;
     this.backToListEvent.emit();
   }
 }

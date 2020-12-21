@@ -4,7 +4,7 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   Output,
   SimpleChanges
@@ -18,6 +18,7 @@ import {Categorie} from '../../../../_core/models/categorie';
 import {NotificationService} from '../../../../_core/services/notification.service';
 import {environment} from '../../../../../environments/environment';
 import {FormDataService} from '../../../../_core/services/form-data.service';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-form-add-edit-books',
@@ -25,13 +26,14 @@ import {FormDataService} from '../../../../_core/services/form-data.service';
   styleUrls: ['./form-add-edit-books.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormAddEditBooksComponent implements OnInit, OnChanges {
+export class FormAddEditBooksComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() storeEvent = new EventEmitter();
   @Output() updateEvent = new EventEmitter();
   @Input() book: Book = null;
-  form: FormGroup;
   @Output() backToListEvent = new EventEmitter();
+  private subs = new SubSink();
+  form: FormGroup;
   languages: Language[] = [];
   categories: Categorie[] = [];
   file: File;
@@ -66,15 +68,18 @@ export class FormAddEditBooksComponent implements OnInit, OnChanges {
   }
 
   getAllLanguages(): void {
-    this.languageService.getAll().subscribe((res: Language[]) => {
-      this.languages = res;
-    });
+    this.subs.add(
+      this.languageService.getAll().subscribe((res: Language[]) => {
+        this.languages = res;
+      })
+    );
   }
 
   getAllCategories(): void {
-    this.categorieService.getAll().subscribe((res: Categorie[]) => {
-      this.categories = res;
-    });
+    this.subs.add(
+      this.categorieService.getAll().subscribe((res: Categorie[]) => {
+        this.categories = res;
+      }));
   }
 
   onSubmit(): void {
@@ -96,7 +101,6 @@ export class FormAddEditBooksComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.book) {
-      console.log('book', this.book);
       this.form.patchValue({
         isbn: this.book.isbn,
         title: this.book.title,
@@ -152,5 +156,9 @@ export class FormAddEditBooksComponent implements OnInit, OnChanges {
   validateFile(name: string): boolean {
     const ext = name.substring(name.lastIndexOf('.') + 1);
     return ext.toLowerCase() === 'png' || ext.toLowerCase() === 'jpg' || ext.toLowerCase() === 'jpeg';
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

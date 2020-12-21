@@ -3,6 +3,7 @@ import {SubSink} from 'subsink';
 import {NotificationService} from '../../../../_core/services/notification.service';
 import {Book} from '../../../../_core/models/book';
 import {BookService} from '../../services/book.service';
+import {JsService} from '../../../../_core/services/js.service';
 
 @Component({
   selector: 'app-container-books',
@@ -18,7 +19,8 @@ export class ContainerBooksComponent implements OnInit, OnDestroy {
   viewBook = false;
 
   constructor(private bookService: BookService,
-              private notification: NotificationService) {
+              private notification: NotificationService,
+              private jsService: JsService) {
   }
 
   ngOnInit(): void {
@@ -52,14 +54,14 @@ export class ContainerBooksComponent implements OnInit, OnDestroy {
   }
 
   handleResponseStore(data: Book): void {
-    this.books = [data, ...this.books];
+    this.books = this.jsService.spread(this.books, data);
     this.notification.success('Book bien crée !', 'bien crée !');
     this.formIsShow = false;
   }
 
 
   edit(book: Book): void {
-    this.selectedBook = Object.assign({}, book);
+    this.selectedBook = this.jsService.objectAssign(book);
     this.showForm();
   }
 
@@ -73,12 +75,7 @@ export class ContainerBooksComponent implements OnInit, OnDestroy {
   }
 
   handleResponseUpdate(data: Book): void {
-    this.books = this.books.map(book => {
-      if (data.id === book.id) {
-        book = data;
-      }
-      return book;
-    });
+    this.books = this.jsService.modifyObjectElementFromArrayByKey(this.books, data, 'id');
     this.notification.success(`Book bien Modfiee !`, 'bien Modfiee !');
     this.formIsShow = false;
   }
@@ -94,17 +91,12 @@ export class ContainerBooksComponent implements OnInit, OnDestroy {
   }
 
   handleResponseDelete(data: Book): void {
-    const index = this.books.findIndex((item, i) => {
-      return data.id === item.id;
-    });
-    this.books.splice(index, 1);
-    this.books = [...this.books];
+    this.books = this.jsService.spread(this.jsService.deleteObjectElementFromArrayByKey(this.books, data, 'id'));
     this.notification.success(`Book bien supprimer !`, 'bien supprimer !');
-
   }
 
   view(book: Book): void {
-    this.selectedBook = Object.assign({}, book);
+    this.selectedBook = this.jsService.objectAssign(book);
     this.viewBook = true;
   }
 

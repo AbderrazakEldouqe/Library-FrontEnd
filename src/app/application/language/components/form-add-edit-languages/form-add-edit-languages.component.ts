@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Language} from '../../../../_core/models/language';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {JsService} from '../../../../_core/services/js.service';
 
 @Component({
   selector: 'app-form-add-edit-languages',
@@ -16,7 +17,7 @@ export class FormAddEditLanguagesComponent implements OnInit, OnChanges {
   form: FormGroup;
   @Output() backToListEvent = new EventEmitter();
 
-  constructor() {
+  constructor(private jsService: JsService) {
   }
 
   ngOnInit(): void {
@@ -51,8 +52,7 @@ export class FormAddEditLanguagesComponent implements OnInit, OnChanges {
   }
 
   update(): void {
-    let updatedLanguage: any = this.form.value;
-    updatedLanguage['id'] = this.language.id;
+    const updatedLanguage = this.jsService.addElementToObject(this.form.value, 'id', this.language.id);
     this.updateEvent.emit(updatedLanguage);
     this.form.reset();
     this.language = null;

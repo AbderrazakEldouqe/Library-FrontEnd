@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter, SimpleChanges, OnChanges, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Categorie} from '../../../../_core/models/categorie';
+import {JsService} from '../../../../_core/services/js.service';
 
 @Component({
   selector: 'app-form-add-edit-categories',
@@ -16,7 +17,7 @@ export class FormAddEditCategoriesComponent implements OnInit, OnChanges {
   form: FormGroup;
   @Output() backToListEvent = new EventEmitter();
 
-  constructor() {
+  constructor(private jsService: JsService) {
   }
 
   ngOnInit(): void {
@@ -51,8 +52,7 @@ export class FormAddEditCategoriesComponent implements OnInit, OnChanges {
   }
 
   update(): void {
-    let updatedCategorie: any = this.form.value;
-    updatedCategorie['id'] = this.categorie.id;
+    const updatedCategorie = this.jsService.addElementToObject(this.form.value, 'id', this.categorie.id);
     this.updateEvent.emit(updatedCategorie);
     this.form.reset();
     this.categorie = null;

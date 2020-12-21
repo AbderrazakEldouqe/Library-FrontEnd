@@ -24,11 +24,8 @@ export class ListBooksComponent implements OnInit, OnChanges {
     currentPage: 1,
     totalItems: this.books.length
   };
-
   tableSizes = [4, 8, 10, 14];
-
   filter = '';
-
   apiUrlImage = environment.apiImageUrl;
 
   constructor() {
@@ -79,15 +76,15 @@ export class ListBooksComponent implements OnInit, OnChanges {
     this.config.currentPage = 1;
   }
 
-  ngAfterViewInit() {
-    // setTimeout(() => {
-    //   mediumZoom('img');
-    //   // alert('ok');
-    // }, 10000);
-    // mediumZoom('img');
-  }
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     mediumZoom('img');
+  //     // alert('ok');
+  //   }, 10000);
+  //   mediumZoom('img');
+  // }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => {
       this.mz.detach('img');
       this.mz = mediumZoom('img');

@@ -3,6 +3,7 @@ import {SubSink} from 'subsink';
 import {Categorie} from '../../../../_core/models/categorie';
 import {NotificationService} from '../../../../_core/services/notification.service';
 import {CategorieService} from '../../services/categorie.service';
+import {JsService} from '../../../../_core/services/js.service';
 
 @Component({
   selector: 'app-container-categories',
@@ -17,7 +18,8 @@ export class ContainerCategoriesComponent implements OnInit, OnDestroy {
   selectedCategorie: Categorie = null;
 
   constructor(private categorieService: CategorieService,
-              private notification: NotificationService) {
+              private notification: NotificationService,
+              private jsService: JsService) {
   }
 
   ngOnInit(): void {
@@ -50,20 +52,20 @@ export class ContainerCategoriesComponent implements OnInit, OnDestroy {
   }
 
   handleResponseStore(data: Categorie): void {
-    this.categories = [data, ...this.categories];
+    this.categories = this.jsService.spread(this.categories, data);
     this.notification.success('Categorie bien crée !', 'bien crée !');
     this.formIsShow = false;
   }
 
 
   edit(categorie: Categorie): void {
-    this.selectedCategorie = Object.assign({}, categorie);
+    this.selectedCategorie = this.jsService.objectAssign(categorie);
     this.showForm();
   }
 
   update(categorie: Categorie): void {
     const id = categorie.id;
-    delete categorie.id;
+    categorie = this.jsService.deleteElementFromObjectByKey(categorie, 'id');
     this.subs.add(
       this.categorieService.update(id, categorie).subscribe((res: Categorie) => {
         this.handleResponseUpdate(res);
@@ -72,12 +74,7 @@ export class ContainerCategoriesComponent implements OnInit, OnDestroy {
   }
 
   handleResponseUpdate(data: Categorie): void {
-    this.categories = this.categories.map(categorie => {
-      if (data.id === categorie.id) {
-        categorie = data;
-      }
-      return categorie;
-    });
+    this.categories = this.jsService.modifyObjectElementFromArrayByKey(this.categories, data, 'id');
     this.notification.success(`Categorie bien Modfiee !`, 'bien Modfiee !');
     this.formIsShow = false;
   }
@@ -93,13 +90,8 @@ export class ContainerCategoriesComponent implements OnInit, OnDestroy {
   }
 
   handleResponseDelete(data: Categorie): void {
-    const index = this.categories.findIndex((item, i) => {
-      return data.id === item.id;
-    });
-    this.categories.splice(index, 1);
-    this.categories = [...this.categories];
+    this.categories = this.jsService.spread(this.jsService.deleteObjectElementFromArrayByKey(this.categories, data, 'id'));
     this.notification.success(`Categorie bien supprimer !`, 'bien supprimer !');
-
   }
 
   ngOnDestroy(): void {
