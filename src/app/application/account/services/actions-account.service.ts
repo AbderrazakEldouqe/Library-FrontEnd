@@ -12,7 +12,7 @@ export class ActionsAccountService {
 
   private responseActionsAccountDatasource = new Subject<any>();
 
-  responseActionsAccount = this.requestActionsAccountDatasource.asObservable();
+  responseActionsAccount = this.responseActionsAccountDatasource.asObservable();
 
   constructor() {
   }

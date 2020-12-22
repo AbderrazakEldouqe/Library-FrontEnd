@@ -1,0 +1,137 @@
+<div class="card">
+  <!-- Card header -->
+  <div class="card-header border-0">
+    <div class="row align-items-center pb-2">
+      <div class="col-8">
+        <h3 class="mb-0">List</h3>
+      </div>
+      <div class="col-4 text-right">
+
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-md-2">
+        <div class="form-group">
+          <select (change)="onTableSizeChange($event)" class="form-control w-50">
+            <option *ngFor="let size of tableSizes" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3 offset-md-7 text-right">
+        <div class="form-group text-right">
+          <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="filter">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Light table -->
+  <div class="table-responsive">
+    <table class="table align-items-center table-flush table-striped table-hover">
+      <thead class="thead-light">
+      <tr>
+        <th class="text-center">Actions</th>
+        <th>Title</th>
+        <th>Quantity</th>
+        <th>borrowing_date</th>
+        <th>receiving_date</th>
+        <th>estimated_return_date</th>
+        <th>Name User</th>
+        <th>Email User</th>
+      </tr>
+      </thead>
+      <tbody class="list">
+      <tr *ngFor="let reservation of allReservations | filter: filter | paginate: config; trackBy: trackById">
+        <td class="table-actions text-center">
+          <button *ngIf="!reservation?.receiving_date && !reservation?.canceled_borrowed_book"
+                  (click)="selectedReservation = reservation"
+                  class="table-action icons"
+                  data-original-title="Edit product"
+                  data-toggle="modal" data-target="#exampleModalCenter"
+          >
+            <i class="fas fa-check-circle" onmouseover="this.style.color='#2dce89';"
+               onmouseout="this.style.color='';"></i>
+          </button>
+          <button *ngIf="!reservation?.receiving_date && !reservation?.canceled_borrowed_book"
+                  (click)="onSubmitCancelReservation(reservation)"
+                  class="table-action table-action-delete icons"
+                  data-toggle="tooltip"
+                  data-original-title="Delete product">
+            <i class="fas fa-window-close"></i>
+          </button>
+          <button *ngIf="!reservation?.return_date && reservation?.receiving_date && !reservation?.canceled_borrowed_book"
+                  (click)="onSubmitReturnReservation(reservation)"
+                  class="table-action table-action-delete icons"
+                  data-toggle="tooltip"
+                  data-original-title="Delete product">
+            <i class="fas fa-undo-alt"></i>
+          </button>
+        </td>
+        <td>{{reservation?.book?.title}}</td>
+        <td>{{reservation?.book?.sotck_quantity}}</td>
+        <td>{{reservation?.borrowing_date}}</td>
+        <td>{{reservation?.receiving_date}}</td>
+        <td>{{reservation?.estimated_return_date}}</td>
+        <td>{{reservation?.user?.name}}</td>
+        <td>{{reservation?.user?.email}}</td>
+      </tr>
+      <tr *ngIf="(allReservations | filter: filter).length === 0">
+        <td colspan="4" class="text-center">No matching records found</td>
+      </tr>
+      </tbody>
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <form [formGroup]="form" (ngSubmit)="onSubmitAccordReservation()">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Accord Reservation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="estimated_return_date">Estimated return date</label>
+                <input formControlName="estimated_return_date"
+                       type="date"
+                       [ngClass]="{
+               'is-valid': form.get('estimated_return_date').valid,
+               'is-invalid': form.get('estimated_return_date').invalid && (form.get('estimated_return_date').touched || (form.get('estimated_return_date').dirty))
+               }"
+                       name="estimated_return_date"
+                       id="estimated_return_date"
+                       class="form-control">
+                <div
+                  *ngIf="form.get('estimated_return_date').invalid && (form.get('estimated_return_date').touched) || (form.get('estimated_return_date').dirty)"
+                  class="invalid-feedback">
+                  <div *ngIf="form.get('estimated_return_date').getError('required')">this field is required</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button #closeModal type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearModal()">Close</button>
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save changes</button>
+              {{form.value | json}}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Card footer -->
+  <div class="card-footer py-4">
+    <app-paginations (pageChange)="config.currentPage=$event"></app-paginations>
+  </div>
+
+</div>
+

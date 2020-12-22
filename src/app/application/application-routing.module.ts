@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from '../_shared/layout/layout.component';
 import {RoleGuard} from '../_core/guards/role.guard';
 import {Role} from '../_core/models/role';
@@ -13,13 +13,13 @@ const routes: Routes = [
         path: '',
         loadChildren: async () => (await import('./dashboard/dashboard.module')).DashboardModule,
         canActivate: [RoleGuard],
-        data: {roles: [Role.ADMIN], animation: 'isLeft'} // this for Admin Role
+        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE], animation: 'isLeft'} // this for Admin Role
       },
       {
         path: 'dashboard',
         loadChildren: async () => (await import('./dashboard/dashboard.module')).DashboardModule,
         canActivate: [RoleGuard],
-        data: {roles: [Role.ADMIN], animation: 'isLeft'} // this for Admin Role
+        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE], animation: 'isLeft'} // this for Admin Role
       },
       {
         path: 'task',
@@ -36,17 +36,26 @@ const routes: Routes = [
       {
         path: 'language',
         loadChildren: async () => (await import('./language/language.module')).LanguageModule,
+        canActivate: [RoleGuard],
         data: {roles: [Role.ADMIN], animation: 'isLeft'}
       },
       {
         path: 'book',
         loadChildren: async () => (await import('./book/book.module')).BookModule,
+        canActivate: [RoleGuard],
         data: {roles: [Role.ADMIN], animation: 'isRight'}
       },
       {
         path: 'account',
         loadChildren: async () => (await import('./account/account.module')).AccountModule,
-        data: {animation: 'isLeft'}
+        canActivate: [RoleGuard],
+        data: {roles: [Role.ADMIN], animation: 'isLeft'}
+      },
+      {
+        path: 'reservation',
+        loadChildren: async () => (await import('./reservation/reservation.module')).ReservationModule,
+        canActivate: [RoleGuard],
+        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE], animation: 'isRight'}
       }
     ]
   }
