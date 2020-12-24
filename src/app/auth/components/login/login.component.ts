@@ -53,8 +53,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   handleError(error: any): void {
-    console.log(error);
-    this.notification.error('Merci de Vérifier votre email ou mot de passe !', ``);
+    if (error.status === 403) {
+      this.notification.error(`${error?.error?.message}`, ``);
+    } else {
+      this.notification.error('Merci de Vérifier votre email ou mot de passe !', ``);
+    }
+
   }
 
   ngOnDestroy(): void {

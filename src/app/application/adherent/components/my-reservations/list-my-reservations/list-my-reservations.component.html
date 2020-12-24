@@ -1,0 +1,73 @@
+<div class="card">
+  <!-- Card header -->
+  <div class="card-header border-0">
+    <div class="row align-items-center pb-2">
+      <div class="col-8">
+        <h3 class="mb-0">List</h3>
+      </div>
+      <div class="col-4 text-right">
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-md-2">
+        <div class="form-group">
+          <select (change)="onTableSizeChange($event)" class="form-control w-50">
+            <option *ngFor="let size of tableSizes" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3 offset-md-7 text-right">
+        <div class="form-group text-right">
+          <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="filter">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Light table -->
+  <div class="table-responsive">
+    <table class="table align-items-center table-flush table-striped table-hover">
+      <thead class="thead-light">
+      <tr>
+        <th *ngIf="actionsCell" class="text-center">Actions</th>
+        <th>Title</th>
+        <th>borrowing_date</th>
+        <th>receiving_date</th>
+        <th>estimated_return_date</th>
+      </tr>
+      </thead>
+      <tbody class="list">
+      <tr *ngFor="let reservation of reservationsData | filter: filter | paginate: config; trackBy: trackById">
+        <td *ngIf="actionsCell" class="table-actions text-center">
+          <button (click)="onSubmitCancelReservation(reservation)"
+                  class="table-action table-action-delete icons"
+                  data-toggle="tooltip"
+                  data-original-title="Delete product">
+            <i class="fas fa-window-close"></i>
+          </button>
+        </td>
+        <td scope="row">
+          {{reservation?.book?.title}}
+        </td>
+        <td>{{reservation?.borrowing_date}}</td>
+        <td>{{reservation?.receiving_date}}</td>
+        <td>{{reservation?.estimated_return_date}}</td>
+      </tr>
+      <tr *ngIf="(reservationsData | filter: filter).length === 0">
+        <td colspan="4" class="text-center">No matching records found</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Card footer -->
+  <div class="card-footer py-4">
+    <app-paginations [idPagination]="idPagination" (pageChange)="config.currentPage=$event"></app-paginations>
+  </div>
+
+</div>

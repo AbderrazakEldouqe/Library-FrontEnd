@@ -6,6 +6,8 @@ import {BadInputError} from '../../../_shared/exceptions/bad-input-error';
 import {AuthService} from '../../services/auth.service';
 import {NotificationService} from '../../../_core/services/notification.service';
 import {SubSink} from 'subsink';
+import {JsService} from '../../../_core/services/js.service';
+import {Role} from '../../../_core/models/role';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +22,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
               private notification: NotificationService,
+              private jsService: JsService,
               private router: Router) {
   }
 
@@ -34,8 +37,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         cin: new FormControl(null, [Validators.required]),
         email: new FormControl(null, [Validators.required, Validators.email]),
         password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
-        confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)])
-
+        confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
+        role: new FormControl(Role.ADHERENT)
       },
       {
         validators: this.password.bind(this)

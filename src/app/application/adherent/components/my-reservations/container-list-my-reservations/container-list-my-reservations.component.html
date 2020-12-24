@@ -1,0 +1,64 @@
+<app-header-adherent [name]="'My Reservations'" [option]="'List'"></app-header-adherent>
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-color: transparent;">
+        <li class="nav-item">
+          <a class="nav-link active" id="canceled-tab" data-toggle="tab" href="#canceled" role="tab"
+             aria-controls="canceled"
+             aria-selected="true">Canceled</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="onGoing-tab" data-toggle="tab" href="#onGoing" role="tab" aria-controls="onGoing"
+             aria-selected="false">OnGoing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="unreturned-tab" data-toggle="tab" href="#unreturned" role="tab"
+             aria-controls="unreturned"
+             aria-selected="false">Unreturned</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="returned-tab" data-toggle="tab" href="#returned" role="tab" aria-controls="returned"
+             aria-selected="false">Returned</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="canceled" role="tabpanel" aria-labelledby="canceled-tab">
+          <div class="">
+            <app-list-my-reservations [actionsCell]="false"
+                                      [reservationsData]="canceledReservations"
+                                      [idPagination]="'canceled'"
+
+            ></app-list-my-reservations>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="onGoing" role="tabpanel" aria-labelledby="onGoing-tab">
+          <div class="">
+            <app-list-my-reservations [actionsCell]="true"
+                                      [reservationsData]="onGoingReservations"
+                                      (cancelReservationEvent)="cancelReservation($event)"
+                                      [idPagination]="'onGoing'"
+            ></app-list-my-reservations>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="unreturned" role="tabpanel" aria-labelledby="unreturned-tab">
+          <div class="">
+            <app-list-my-reservations [actionsCell]="false"
+                                      [reservationsData]="unreturnedReservations"
+                                      [idPagination]="'unreturned'"
+            ></app-list-my-reservations>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="returned" role="tabpanel" aria-labelledby="returned-tab">
+          <div class="">
+            <app-list-my-reservations [actionsCell]="false"
+                                      [reservationsData]="returnedReservations"
+                                      [idPagination]="'returned'"
+            ></app-list-my-reservations>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

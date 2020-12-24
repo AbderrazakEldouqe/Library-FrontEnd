@@ -1,6 +1,6 @@
 <!--<pagination-template #p="paginationApi" [id]="'custom'" (pageChange)="currentPage = $event">-->
 
-<pagination-template #p="paginationApi" [id]="'custom'" (pageChange)="pageChanged($event)">
+<pagination-template #p="paginationApi" [id]="(idPagination) ? idPagination : 'custom'" (pageChange)="pageChanged($event)">
   <nav aria-label="...">
     <ul class="pagination justify-content-end mb-0">
       <li class="page-item" [class.disabled]="p.isFirstPage()">

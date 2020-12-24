@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="position-relative">
+    <div>
+      <img class="card-img-top"
+           [src]="apiUrlImage+''+book?.image"
+           alt="Card image cap"
+           style="height: 180px;"
+      >
+    </div>
+    <span class="badge badge-pill  position-absolute badge-top-left"
+          [ngClass]="{'badge-danger': book?.sotck_quantity<=0 ,'badge-success': book?.sotck_quantity>0}"
+    >
+      {{(book?.sotck_quantity > 0) ? 'IN STOCK' : 'OUT OF STOCK'}}
+    </span>
+  </div>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-12 text-center">
+        <div>
+          <p class="list-item-heading mb-1" style="font-size: 1.2rem;font-weight: 700;">{{book?.title}}</p>
+          <p class="text-muted text-small mb-0 font-weight-light">{{book?.author}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button [disabled]="book.sotck_quantity<=0"
+            (click)="reserve(book)"
+            class="btn btn-block btn-primary"
+
+    >
+      <i class="fas fa-shopping-basket"></i>
+      Reserver
+    </button>
+  </div>
+</div>

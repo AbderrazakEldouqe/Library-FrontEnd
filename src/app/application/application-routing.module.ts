@@ -13,13 +13,13 @@ const routes: Routes = [
         path: '',
         loadChildren: async () => (await import('./dashboard/dashboard.module')).DashboardModule,
         canActivate: [RoleGuard],
-        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE], animation: 'isLeft'} // this for Admin Role
+        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE, Role.ADHERENT], animation: 'isLeft'} // this for Admin Role
       },
       {
         path: 'dashboard',
         loadChildren: async () => (await import('./dashboard/dashboard.module')).DashboardModule,
         canActivate: [RoleGuard],
-        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE], animation: 'isLeft'} // this for Admin Role
+        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE, Role.ADHERENT], animation: 'isLeft'} // this for Admin Role
       },
       {
         path: 'task',
@@ -56,6 +56,12 @@ const routes: Routes = [
         loadChildren: async () => (await import('./reservation/reservation.module')).ReservationModule,
         canActivate: [RoleGuard],
         data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE], animation: 'isRight'}
+      },
+      {
+        path: 'adherent',
+        loadChildren: async () => (await import('./adherent/adherent.module')).AdherentModule,
+        canActivate: [RoleGuard],
+        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE, Role.ADHERENT], animation: 'isRight'}
       }
     ]
   }
