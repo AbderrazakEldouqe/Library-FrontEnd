@@ -16,6 +16,7 @@ export class ListReservationsAllComponent implements OnInit {
   selectedReservation: Reservation = null;
   form: FormGroup;
   @ViewChild('closeModal') closeModal: ElementRef;
+  minDate = new Date();
   config = {
     id: 'custom',
     itemsPerPage: 4,

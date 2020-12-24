@@ -103,6 +103,7 @@
                 <label for="estimated_return_date">Estimated return date</label>
                 <input formControlName="estimated_return_date"
                        type="date"
+                       [min]="minDate | date:'yyyy-MM-dd'"
                        [ngClass]="{
                'is-valid': form.get('estimated_return_date').valid,
                'is-invalid': form.get('estimated_return_date').invalid && (form.get('estimated_return_date').touched || (form.get('estimated_return_date').dirty))
