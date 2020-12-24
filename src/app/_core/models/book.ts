@@ -12,4 +12,5 @@ export interface Book {
   description: string;
   language: Language;
   categories: Categorie[];
+  reserved?: boolean;
 }

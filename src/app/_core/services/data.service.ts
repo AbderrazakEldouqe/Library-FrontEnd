@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,14 @@ export class DataService {
   }
 
   getAll(headersObject = {}): Observable<any> {
-    return this.http.get(this.url, {headers: headersObject});
+    return this.http.get(this.url, {headers: headersObject}).pipe(
+      // map((obj: []) => {
+      //
+      //   return obj.map((a: object) => {
+      //     return ({...a, Active: 'false'});
+      //   });
+      // })
+    );
   }
 
   getOne(id: any, headersObject = {}): Observable<any> {

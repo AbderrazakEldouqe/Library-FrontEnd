@@ -25,13 +25,13 @@
     </div>
   </div>
   <div class="card-footer">
-    <button [disabled]="book.sotck_quantity<=0"
+    <button [disabled]="book?.sotck_quantity<=0 || book?.reserved "
             (click)="reserve(book)"
-            class="btn btn-block btn-primary"
-
+            class="btn btn-block"
+            [ngClass]="{'btn-light': book?.reserved ,'btn-primary': !book?.reserved}"
     >
-      <i class="fas fa-shopping-basket"></i>
-      Reserver
+      <i class="fas" [ngClass]="{'fa-shopping-basket': !book?.reserved ,'fa-check': book?.reserved}"></i>
+      {{(book?.reserved) ? 'Reserved' : 'Reserver'}}
     </button>
   </div>
 </div>
