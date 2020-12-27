@@ -58,6 +58,7 @@
                       *ngIf="registerForm.get('name').invalid && (registerForm.get('name').touched) || (registerForm.get('name').dirty)"
                       class="invalid-feedback">
                       <div *ngIf="registerForm.get('name').getError('required')">this field is required</div>
+                      <div *ngIf="registerForm.get('name').errors?.serverError">{{ registerForm.get('name').errors?.serverError }}</div>
                     </div>
                   </div>
 
@@ -78,6 +79,7 @@
                       *ngIf="registerForm.get('cin').invalid && (registerForm.get('cin').touched) || (registerForm.get('cin').dirty)"
                       class="invalid-feedback">
                       <div *ngIf="registerForm.get('cin').getError('required')">this field is required</div>
+                      <div *ngIf="registerForm.get('cin').errors?.serverError">{{ registerForm.get('cin').errors?.serverError }}</div>
                     </div>
                   </div>
 
@@ -99,6 +101,7 @@
                       class="invalid-feedback">
                       <div *ngIf="registerForm.get('email').getError('required')">this field is required</div>
                       <div *ngIf="registerForm.get('email').getError('email')">this field should be email address</div>
+                      <div *ngIf="registerForm.get('email').errors?.serverError">{{ registerForm.get('email').errors?.serverError }}</div>
                     </div>
                   </div>
 
@@ -124,6 +127,7 @@
                       <div *ngIf="registerForm.get('password').getError('required')">this field is required</div>
                       <div *ngIf="registerForm.get('password').getError('minlength')">this field should be 8 caracters</div>
                       <div *ngIf="registerForm.get('password').getError('maxlength')">this field should be 8 caracters</div>
+                      <div *ngIf="registerForm.get('password').errors?.serverError">{{ registerForm.get('password').errors?.serverError }}</div>
                     </div>
                   </div>
 
@@ -185,7 +189,7 @@
               <a href="#" onclick="return false;" class="text-light"><small>Forgot password?</small></a>
             </div>
             <div class="col-6 text-right">
-              <a routerLink="/auth/register" class="text-light"><small>Create new account</small></a>
+              <a routerLink="/auth/login" class="text-light"><small>Login to your account</small></a>
             </div>
           </div>
         </div>

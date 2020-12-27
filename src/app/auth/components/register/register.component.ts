@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AppError} from '../../../_shared/exceptions/app-error';
-import {BadInputError} from '../../../_shared/exceptions/bad-input-error';
 import {AuthService} from '../../services/auth.service';
 import {NotificationService} from '../../../_core/services/notification.service';
 import {SubSink} from 'subsink';
 import {JsService} from '../../../_core/services/js.service';
 import {Role} from '../../../_core/models/role';
+import {ErrorValidationServerService} from '../../../_core/services/errors/error-validation-server.service';
 
 @Component({
   selector: 'app-register',
@@ -23,15 +22,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService,
               private notification: NotificationService,
               private jsService: JsService,
-              private router: Router) {
+              private router: Router,
+              private errorValidationServerService: ErrorValidationServerService) {
   }
 
   ngOnInit(): void {
     this.initialFormGroupe();
+    this.handleErrorsValidationServer();
   }
 
   initialFormGroupe(): void {
-
     this.registerForm = new FormGroup({
         name: new FormControl(null, [Validators.required]),
         cin: new FormControl(null, [Validators.required]),
@@ -45,34 +45,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
       });
   }
 
+  handleErrorsValidationServer(): void {
+    this.subs.add(
+      this.errorValidationServerService.responseValidationServer.subscribe(validationErrors => {
+        this.errorValidationServerService.setErrorsToFormGroup(validationErrors, this.registerForm);
+      })
+    );
+  }
+
   register(): void {
     console.log(this.registerForm.value);
     this.errorsServer = null;
     this.subs.add(
-      this.authService.register(this.registerForm.value, {skip_token: 'true', skip_http_error_interceptor: 'true'})
+      this.authService.register(this.registerForm.value, {skip_token: 'true', /*skip_http_error_interceptor: 'true'*/})
         .subscribe((res: any) => this.handleResponse(res),
-          (err: AppError) => this.handleError(err))
+          // (err: AppError) => this.handleError(err)
+        )
     );
   }
 
   handleResponse(data: any): void {
     this.notification.success(`Bienvenu : ${this.registerForm.get('name').value}`, 'Vous compte a éte bien crée !');
     this.router.navigateByUrl('/auth');
-  }
-
-  handleError(error: AppError): void {
-    console.log(error);
-    if (error instanceof BadInputError) {
-      this.errorsServer = error.originalError.error.errors;
-      console.log('errors: ', this.errorsServer);
-      this.notification.error(`Erreur `, 'Merci de Vérifier votre donné saisie !');
-    } else {
-      // alert('error inattendue');
-      this.errorsServer = error.originalError.error.errors;
-      console.log('errors: ', this.errorsServer);
-      this.notification.error(`Error inattendue ! `, '');
-    }
-
   }
 
   password(formGroup: FormGroup): void | null {

@@ -62,6 +62,12 @@ const routes: Routes = [
         loadChildren: async () => (await import('./adherent/adherent.module')).AdherentModule,
         canActivate: [RoleGuard],
         data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE, Role.ADHERENT], animation: 'isRight'}
+      },
+      {
+        path: 'profile',
+        loadChildren: async () => (await import('./profile/profile.module')).ProfileModule,
+        canActivate: [RoleGuard],
+        data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE, Role.ADHERENT], animation: 'isLeft'}
       }
     ]
   }

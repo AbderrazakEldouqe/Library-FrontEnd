@@ -10,6 +10,7 @@ import {NotFoundError} from '../../../_shared/exceptions/not-found-error';
 import {BadInputError} from '../../../_shared/exceptions/bad-input-error';
 import {AppError} from '../../../_shared/exceptions/app-error';
 import {catchError} from 'rxjs/operators';
+import {ValidationServerError} from '../../../_shared/exceptions/validation-server-error';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -31,11 +32,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     let err;
     if (error.status === 404) {
       err = new NotFoundError(error);
+    } else if (error.status === 422) {
+      err = new ValidationServerError(error);
     } else if (error.status === 400) {
       err = new BadInputError(error);
     } else {
       err = new AppError(error);
     }
+    console.log('handleError', err);
     return throwError(err);
   }
 }

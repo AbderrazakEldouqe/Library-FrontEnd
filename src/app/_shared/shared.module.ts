@@ -16,14 +16,20 @@ import {PaginationsComponent} from './components/paginations/paginations.compone
 import {NgSelectModule} from '@ng-select/ng-select';
 
 
-
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent, PageNotFoundComponent, LayoutComponent, NavbarComponent, SidebarComponent, KeysPipe, PaginationsComponent],
+  declarations: [FooterComponent, HeaderComponent, PageNotFoundComponent, LayoutComponent,
+    NavbarComponent, SidebarComponent, KeysPipe, PaginationsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+    }),
+    // ToastrModule.forRoot({
+    //   toastClass: 'toast toast-bootstrap-compatibility-fix'
+    // }),
     RouterModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,

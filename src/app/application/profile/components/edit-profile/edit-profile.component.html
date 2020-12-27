@@ -1,0 +1,178 @@
+<div class="container-fluid mt--6">
+  <div class="row">
+
+    <div class="col-xl-8 order-xl-1 mx-auto">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Edit profile </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!--          <form>-->
+          <div>
+            <form [formGroup]="userInfoForm" (ngSubmit)="updateUserInfo()">
+              <h6 class="heading-small text-muted mb-4">User information</h6>
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="name">Name</label>
+                      <input formControlName="name"
+                             id="name"
+                             type="text"
+                             [ngClass]="{
+               'is-valid': userInfoForm.get('name').valid,
+               'is-invalid': userInfoForm.get('name').invalid && (userInfoForm.get('name').touched || (userInfoForm.get('name').dirty))
+               }"
+                             class="form-control"
+                             placeholder="name">
+                      <div
+                        *ngIf="userInfoForm.get('name').invalid && (userInfoForm.get('name').touched) || (userInfoForm.get('name').dirty)"
+                        class="invalid-feedback">
+                        <div *ngIf="userInfoForm.get('name').getError('required')">this field is required</div>
+                        <div *ngIf="userInfoForm.get('name').errors?.serverError">{{ userInfoForm.get('name').errors?.serverError }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="email">Email address</label>
+                      <input formControlName="email"
+                             id="email"
+                             type="text"
+                             [ngClass]="{
+               'is-valid': userInfoForm.get('email').valid,
+               'is-invalid': userInfoForm.get('email').invalid && (userInfoForm.get('email').touched || (userInfoForm.get('email').dirty))
+               }"
+                             class="form-control" placeholder="Email">
+                      <div
+                        *ngIf="userInfoForm.get('email').invalid && (userInfoForm.get('email').touched) || (userInfoForm.get('email').dirty)"
+                        class="invalid-feedback">
+                        <div *ngIf="userInfoForm.get('email').getError('required')">this field is required</div>
+                        <div *ngIf="userInfoForm.get('email').getError('email')">this field should be email address</div>
+                        <div *ngIf="userInfoForm.get('email').errors?.serverError">{{ userInfoForm.get('email').errors?.serverError }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="phone_number">Phone number</label>
+                      <input formControlName="phone_number"
+                             id="phone_number"
+                             type="text"
+                             [ngClass]="{
+               'is-valid': userInfoForm.get('phone_number').valid,
+               'is-invalid': userInfoForm.get('phone_number').invalid && (userInfoForm.get('phone_number').touched || (userInfoForm.get('phone_number').dirty))
+               }"
+                             class="form-control"
+                             placeholder="name">
+                      <div
+                        *ngIf="userInfoForm.get('phone_number').invalid && (userInfoForm.get('phone_number').touched) || (userInfoForm.get('phone_number').dirty)"
+                        class="invalid-feedback">
+                        <div *ngIf="userInfoForm.get('phone_number').getError('required')">this field is required</div>
+                        <div *ngIf="userInfoForm.get('phone_number').getError('pattern')">Please, Enter 10 digit Mobile Number.</div>
+                        <div *ngIf="userInfoForm.get('phone_number').errors?.serverError">{{ userInfoForm.get('phone_number').errors?.serverError }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="cin">Cin</label>
+                      <input formControlName="cin"
+                             id="cin"
+                             type="text"
+                             [ngClass]="{
+               'is-valid': userInfoForm.get('cin').valid,
+               'is-invalid': userInfoForm.get('cin').invalid && (userInfoForm.get('cin').touched || (userInfoForm.get('cin').dirty))
+               }"
+                             class="form-control"
+                             placeholder="name">
+                      <div
+                        *ngIf="userInfoForm.get('cin').invalid && (userInfoForm.get('cin').touched) || (userInfoForm.get('cin').dirty)"
+                        class="invalid-feedback">
+                        <div *ngIf="userInfoForm.get('cin').getError('required')">this field is required</div>
+                        <div *ngIf="userInfoForm.get('cin').errors?.serverError">{{ userInfoForm.get('cin').errors?.serverError }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-primary" [disabled]="userInfoForm.invalid">Update Information</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <hr class="my-4"/>
+            <!-- Address -->
+            <form [formGroup]="userResetPasswordForm" (ngSubmit)="updateUserResetPassword()">
+              <h6 class="heading-small text-muted mb-4">Reset Password</h6>
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="password">Password</label>
+                      <input formControlName="password"
+                             type="password"
+                             [ngClass]="{
+               'is-valid': userResetPasswordForm.get('password').valid,
+               'is-invalid': userResetPasswordForm.get('password').invalid && (userResetPasswordForm.get('password').touched || (userResetPasswordForm.get('password').dirty))
+               }"
+                             name=""
+                             id="password"
+                             class="form-control"
+                             placeholder="Password">
+                      <div
+                        *ngIf="userResetPasswordForm.get('password').invalid && (userResetPasswordForm.get('password').touched) || (userResetPasswordForm.get('password').dirty)"
+                        class="invalid-feedback">
+                        <div *ngIf="userResetPasswordForm.get('password').getError('required')">this field is required</div>
+                        <div *ngIf="userResetPasswordForm.get('password').getError('minlength')">this field should be 8 caracters</div>
+                        <div *ngIf="userResetPasswordForm.get('password').getError('maxlength')">this field should be 8 caracters</div>
+                        <div *ngIf="userResetPasswordForm.get('password').errors?.serverError">{{ userResetPasswordForm.get('password').errors?.serverError }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="confirmPassword">Confirm Password</label>
+                      <input formControlName="confirmPassword"
+                             type="password"
+                             [ngClass]="{
+               'is-valid': userResetPasswordForm.get('confirmPassword').valid,
+               'is-invalid': userResetPasswordForm.get('confirmPassword').invalid && (userResetPasswordForm.get('confirmPassword').touched || (userResetPasswordForm.get('confirmPassword').dirty))
+               }"
+                             name=""
+                             id="confirmPassword"
+                             class="form-control"
+                             placeholder="confirmPassword">
+                      <div
+                        *ngIf="userResetPasswordForm.get('confirmPassword').invalid && (userResetPasswordForm.get('confirmPassword').touched) || (userResetPasswordForm.get('confirmPassword').dirty)"
+                        class="invalid-feedback">
+                        <div *ngIf="userResetPasswordForm.get('confirmPassword').getError('required')">this field is required</div>
+                        <div *ngIf="userResetPasswordForm.get('confirmPassword').getError('minlength')">this field should be 8 caracters</div>
+                        <div *ngIf="userResetPasswordForm.get('confirmPassword').getError('maxlength')">this field should be 8 caracters</div>
+                        <div *ngIf="userResetPasswordForm.get('confirmPassword').getError('confirmPasswordMatch')">this field should be equal feild password</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <button type="submit" class="btn btn-sm btn-primary" [disabled]="userResetPasswordForm.invalid" >Update Password</button>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

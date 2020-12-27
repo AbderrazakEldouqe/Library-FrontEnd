@@ -38,9 +38,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   login(): void {
     console.log(this.loginForm.value);
     this.subs.add(
-      this.authService.login(this.loginForm.value, {skip_token: 'true', skip_http_error_interceptor: 'true'})
+      this.authService.login(this.loginForm.value, {skip_token: 'true', /*skip_http_error_interceptor: 'true'*/})
         .subscribe((res: any) => this.handleResponse(res),
-          (err: any) => this.handleError(err))
+          // (err: any) => this.handleError(err)
+        )
     );
   }
 

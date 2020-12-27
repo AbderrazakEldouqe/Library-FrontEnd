@@ -1,0 +1,5 @@
+<app-header-profile
+  [name]="'Profile'"
+  [option]="'Edit'"
+></app-header-profile>
+<app-edit-profile [currentUser]="account" (updateEvent)="updateUser($event)"></app-edit-profile>
