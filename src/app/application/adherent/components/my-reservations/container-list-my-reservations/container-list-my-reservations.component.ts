@@ -1,10 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SubSink} from 'subsink';
 import {Reservation} from '../../../../../_core/models/reservation';
-import {Role} from '../../../../../_core/models/role';
-import {Account} from '../../../../../_core/models/account';
 import {AdherentService} from '../../../services/adherent.service';
-import {BookService} from '../../../../book/services/book.service';
 import {NotificationService} from '../../../../../_core/services/notification.service';
 import {JsService} from '../../../../../_core/services/js.service';
 import {ReservationService} from '../../../../reservation/services/reservation.service';

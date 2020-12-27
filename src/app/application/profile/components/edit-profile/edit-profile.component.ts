@@ -1,7 +1,6 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, OnDestroy} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {Account} from '../../../../_core/models/account';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Role} from '../../../../_core/models/role';
 import {JsService} from '../../../../_core/services/js.service';
 import {ErrorValidationServerService} from '../../../../_core/services/errors/error-validation-server.service';
 import {SubSink} from 'subsink';
@@ -9,7 +8,8 @@ import {SubSink} from 'subsink';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditProfileComponent implements OnInit, OnChanges, OnDestroy {
 

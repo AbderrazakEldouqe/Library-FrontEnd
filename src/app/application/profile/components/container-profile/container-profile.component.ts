@@ -4,7 +4,6 @@ import {Account} from '../../../../_core/models/account';
 import {NotificationService} from '../../../../_core/services/notification.service';
 import {JsService} from '../../../../_core/services/js.service';
 import {ProfileService} from '../../services/profile.service';
-import {Categorie} from '../../../../_core/models/categorie';
 import {TokenService} from '../../../../_core/services/token.service';
 
 @Component({
@@ -41,6 +40,7 @@ export class ContainerProfileComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.profileService.update(id, user).subscribe((res: Account) => {
         this.account = res;
+        this.notification.success('bien modifié !', '');
       })
     );
   }

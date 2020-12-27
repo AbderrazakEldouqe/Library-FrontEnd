@@ -78,6 +78,7 @@ export class ContainerBooksComponent implements OnInit, OnDestroy {
     this.books = this.jsService.modifyObjectElementFromArrayByKey(this.books, data, 'id');
     this.notification.success(`Book bien Modfiee !`, 'bien Modfiee !');
     this.formIsShow = false;
+    this.selectedBook = null;
   }
 
 

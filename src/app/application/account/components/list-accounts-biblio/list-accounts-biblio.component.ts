@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Account} from '../../../../_core/models/account';
 import Swal from 'sweetalert2';
 import {ActionsAccountService} from '../../services/actions-account.service';

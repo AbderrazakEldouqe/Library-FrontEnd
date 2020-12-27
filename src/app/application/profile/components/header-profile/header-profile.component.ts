@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-header-profile',
   templateUrl: './header-profile.component.html',
-  styleUrls: ['./header-profile.component.css']
+  styleUrls: ['./header-profile.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderProfileComponent implements OnInit {
 

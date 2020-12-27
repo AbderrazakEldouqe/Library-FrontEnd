@@ -31,6 +31,7 @@
                 <div *ngIf="form.get('name').invalid && (form.get('name').touched) || (form.get('name').dirty)"
                      class="invalid-feedback">
                   <div *ngIf="form.get('name').getError('required')">this field is required</div>
+                  <div *ngIf="form.get('name').errors?.serverError">{{ form.get('name').errors?.serverError }}</div>
                 </div>
               </div>
               <div class="form-group col-md-6">
@@ -48,6 +49,7 @@
                      class="invalid-feedback">
                   <div *ngIf="form.get('email').getError('required')">this field is required</div>
                   <div *ngIf="form.get('email').getError('email')">this field should be email</div>
+                  <div *ngIf="form.get('email').errors?.serverError">{{ form.get('email').errors?.serverError }}</div>
                 </div>
               </div>
               <div class="form-group col-md-6">
@@ -64,6 +66,9 @@
                 <div *ngIf="form.get('password').invalid && (form.get('password').touched) || (form.get('password').dirty)"
                      class="invalid-feedback">
                   <div *ngIf="form.get('password').getError('required')">this field is required</div>
+                  <div *ngIf="form.get('password').getError('minlength')">this field should be 8 caracters</div>
+                  <div *ngIf="form.get('password').getError('maxlength')">this field should be 8 caracters</div>
+                  <div *ngIf="form.get('password').errors?.serverError">{{ form.get('password').errors?.serverError }}</div>
                 </div>
               </div>
               <div class="form-group col-md-6">
@@ -80,6 +85,7 @@
                 <div *ngIf="form.get('cin').invalid && (form.get('cin').touched) || (form.get('cin').dirty)"
                      class="invalid-feedback">
                   <div *ngIf="form.get('cin').getError('required')">this field is required</div>
+                  <div *ngIf="form.get('cin').errors?.serverError">{{ form.get('cin').errors?.serverError }}</div>
                 </div>
               </div>
 

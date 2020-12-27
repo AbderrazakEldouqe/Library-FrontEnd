@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-header-languages',
   templateUrl: './header-languages.component.html',
-  styleUrls: ['./header-languages.component.css']
+  styleUrls: ['./header-languages.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderLanguagesComponent implements OnInit {
 

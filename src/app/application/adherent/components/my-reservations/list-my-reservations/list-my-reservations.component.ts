@@ -6,7 +6,6 @@ import {
   Output,
   EventEmitter,
   SimpleChanges,
-  AfterViewInit,
   OnChanges, ChangeDetectorRef
 } from '@angular/core';
 import {Reservation} from '../../../../../_core/models/reservation';

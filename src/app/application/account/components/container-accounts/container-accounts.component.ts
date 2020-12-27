@@ -104,6 +104,7 @@ export class ContainerAccountsComponent implements OnInit, OnDestroy {
     this.notification.success('Account bien crée !', 'bien crée !');
     this.formIsShow = false;
     this.source = null;
+    this.selectedAccount = null;
   }
 
   edit(account: Account): void {
@@ -129,6 +130,8 @@ export class ContainerAccountsComponent implements OnInit, OnDestroy {
     }
     this.notification.success(`Account bien Modfiee !`, 'bien Modfiee !');
     this.formIsShow = false;
+    this.source = null;
+    this.selectedAccount = null;
   }
 
 
