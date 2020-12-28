@@ -21,4 +21,11 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/register`, data, {headers: headersObject});
   }
 
+  requestResetPassword(data, headersObject = {}): Observable<object> {
+    return this.http.post(`${environment.apiUrl}/auth/sendPasswordResetLink`, data, {headers: headersObject});
+  }
+
+  resetPassword(data, headersObject = {}): Observable<object> {
+    return this.http.post(`${environment.apiUrl}/auth/resetPassword`, data, {headers: headersObject});
+  }
 }
