@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from '../_shared/layout/layout.component';
 import {RoleGuard} from '../_core/guards/role.guard';
 import {Role} from '../_core/models/role';
+import {ImportExcelComponent} from '../_shared/components/import-excel/import-excel.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,12 @@ const routes: Routes = [
         loadChildren: async () => (await import('./profile/profile.module')).ProfileModule,
         canActivate: [RoleGuard],
         data: {roles: [Role.ADMIN, Role.BIBLIOTHECAIRE, Role.ADHERENT], animation: 'isLeft'}
+      },
+      {
+        path: 'import-excel/:source',
+        component: ImportExcelComponent,
+        canActivate: [RoleGuard],
+        data: {roles: [Role.ADMIN], animation: 'isRight', source: null}
       }
     ]
   }

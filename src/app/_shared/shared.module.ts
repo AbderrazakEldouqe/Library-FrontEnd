@@ -14,11 +14,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {PaginationsComponent} from './components/paginations/paginations.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { ImportExcelComponent } from './components/import-excel/import-excel.component';
+import { DragDropDirective } from './derictives/drag-drop.directive';
 
 
 @NgModule({
   declarations: [FooterComponent, HeaderComponent, PageNotFoundComponent, LayoutComponent,
-    NavbarComponent, SidebarComponent, KeysPipe, PaginationsComponent],
+    NavbarComponent, SidebarComponent, KeysPipe, PaginationsComponent, ImportExcelComponent, DragDropDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -1,0 +1,112 @@
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Import Excel</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item"><a routerLink="/application"><i class="fas fa-home"></i></a></li>
+              <li class="breadcrumb-item"><a routerLink="/application/import-excel">Import</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{source | titlecase }}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="container" appDragDrop
+           (hovered)="toggleHover($event)"
+           (filesChangeEmiter)="dropExcelOnChance($event)"
+           (filesInvalidEmiter)="dropExcelBlock($event)"
+           [allowedExtensions]="['xlsx','xls',  'xlsm','xltx','xltm','xlsb','xlam']"
+           [class.hovering]="isHovering"
+      >
+        <input type="file" (change)="onFileChange($event)"
+               multiple="false"
+               #inputFile
+               id="fileDropRef"
+               accept=".xlsx, .xls, .xlsm, .xltx, .xltm, .xlsb, .xlam"
+        />
+        <svg xmlns="http://www.w3.org/2000/svg" width="63" height="64" viewBox="0 0 63 64">
+          <g fill="#3B454F" fill-rule="nonzero">
+            <path
+              d="M42.656 15.135a1.953 1.953 0 0 1-1.391-.578L31.5 4.795l-9.765 9.762a1.97 1.97 0 1 1-2.785-2.785L30.106.616a1.97 1.97 0 0 1 2.785 0l11.157 11.156a1.97 1.97 0 0 1-1.392 3.363z"/>
+            <path
+              d="M31.5 36.791a1.97 1.97 0 0 1-1.969-1.969V2.01a1.97 1.97 0 0 1 3.938 0v32.812a1.97 1.97 0 0 1-1.969 1.969z"/>
+            <path
+              d="M55.781 63.041H7.22A7.225 7.225 0 0 1 0 55.822V41.385a4.599 4.599 0 0 1 4.594-4.594h7.234a4.567 4.567 0 0 1 4.402 3.276l2.814 9.382a.658.658 0 0 0 .628.467h23.656a.658.658 0 0 0 .628-.467l2.814-9.385a4.572 4.572 0 0 1 4.402-3.273h7.234A4.599 4.599 0 0 1 63 41.385v14.437a7.225 7.225 0 0 1-7.219 7.219zM4.594 40.729a.656.656 0 0 0-.657.656v14.437a3.286 3.286 0 0 0 3.282 3.282H55.78a3.286 3.286 0 0 0 3.282-3.282V41.385a.656.656 0 0 0-.657-.656h-7.234a.65.65 0 0 0-.628.467L47.73 50.58a4.628 4.628 0 0 1-4.402 3.274H19.672a4.567 4.567 0 0 1-4.402-3.276l-2.814-9.382a.65.65 0 0 0-.628-.467H4.594z"/>
+          </g>
+        </svg>
+
+        <h3>Drag and drop file here</h3>
+        <h3>or</h3>
+        <label for="fileDropRef">Browse for file</label>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header border-0">
+          <div class="row align-items-center pb-2">
+            <div class="col-8">
+              <h3 class="mb-0">Data</h3>
+            </div>
+            <div class="col-4 text-right">
+              <button class="btn btn-sm btn-primary" (click)="removeData()" [disabled]="data.length<=0">Clear</button>
+              <button class="btn btn-sm btn-primary" id="btn_back" [disabled]="data.length<=0" (click)="confirmUpload()">Confirm upload</button>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-md-3">
+              <div class="form-group">
+                <select (change)="onTableSizeChange($event)" class="form-control w-50">
+                  <option *ngFor="let size of tableSizes" [ngValue]="size">
+                    {{ size }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3 offset-md-6 text-right">
+              <div class="form-group text-right">
+                <input
+                  type="text"
+                  name="search"
+                  class="form-control"
+                  placeholder="Search..."
+                  [(ngModel)]="filter">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Light table -->
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush table-striped table-hover">
+            <thead class="thead-light">
+            <tr>
+              <th *ngFor="let key of keys">{{key}}</th>
+            </tr>
+            </thead>
+            <tbody class="list">
+            <tr *ngFor="let row of data | filter: filter | paginate: config;">
+              <td *ngFor="let key of keys">
+                {{row[key]}}
+              </td>
+            </tr>
+            <tr *ngIf="(data | filter: filter).length === 0">
+              <td [colSpan]="keys.length" class="text-center">No matching records found</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <app-paginations (pageChange)="config.currentPage=$event"></app-paginations>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
