@@ -122,7 +122,6 @@
             <div class="modal-footer">
               <button #closeModal type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearModal()">Close</button>
               <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save changes</button>
-              {{form.value | json}}
             </div>
           </div>
         </form>
